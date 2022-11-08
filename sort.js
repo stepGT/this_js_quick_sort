@@ -14,4 +14,42 @@ const quickSort = (array) => {
   return [...quickSort(less), root, ...quickSort(greater)];
 };
 
-console.log(quickSort(arr));
+const IQuickSort = (array) => {
+  return IQuickSortHelper(array, 0, array.length - 1);
+};
+
+const IQuickSortHelper = (array, left, right) => {
+  if (array.length < 2) return array;
+  const index = partition(array, left, right);
+  if (left < index - 1) IQuickSortHelper(array, left, index - 1);
+  if (index < right) IQuickSortHelper(array, index, right);
+  return array;
+};
+
+const partition = (array, left, right) => {
+  const root = array[Math.floor((left + right) / 2)];
+  //
+  while (left <= right) {
+    while (array[left] < root) {
+      left++;
+    }
+    while (array[right] > root) {
+      right--;
+    }
+    if (left <= right) {
+      swap(array, left, right);
+      left++;
+      right--;
+    }
+  }
+  return left;
+};
+
+const swap = (array, i, j) => {
+  const temp = array[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+};
+
+//console.log(quickSort(arr));
+console.log(IQuickSort(arr));
